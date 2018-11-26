@@ -14,15 +14,15 @@ As a user, I want the ability to submit pictures to a website.
 - The API must delete the file that was sent -- don't have to worry about storing it somewhere or writing to DB
 
 *Please submit the following:*
-- An example REST API that you've written (a single verb -- `POST` -- is fine)
-- An Angular app that `POSTS` to the API 
+- An example REST API in `node.js` that you've written (a single verb -- `POST` -- is fine)
+- An Angular 5 app that `POSTS` to the API 
 
 Don't worry about styling
 
 # Scoring is based on:
-- Functionality: does it work?
+- Functionality
 - Code
 
-Please commit code to the master branch of this repository by *Midnight, Wednesday, October 3, 2018*
+Please submit a `pull request` to this repository by *Midnight, Thursday, November 29, 2018*
 
 If you have any questions, please contact john.cruz@phsa.ca
