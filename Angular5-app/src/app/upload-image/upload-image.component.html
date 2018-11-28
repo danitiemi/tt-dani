@@ -1,19 +1,25 @@
 <div class="container">
   <div class="row">
     <div class="col s8 offset-2">
-      <div class="card-panel teal lighten-2">
-        <h4 class="center white-text">Image Library</h4>
+      <div class="card-panel grey lighten-2">
+        <h4 class="center teal-text">Photo Collection</h4>
       </div>
       <form #imageForm=ngForm (ngSubmit)="OnSubmit(Caption,Image)">
+
         <div class="row">
           <div class="input-field col s12">
-            <input type="text" #Caption ngModel name="Caption" id="Caption" required>
             <label for="Caption">Caption</label>
+            <input type="text" #Caption ngModel name="Caption" id="Caption" required>
+            <!-- <span ng-show="imageForm.$touched && imageForm.Caption.$invalid">The caption is required.</span> -->
+            <div [hidden]="Caption.valid || Caption.pristine" class="alert alert-danger">Caption is required</div>
           </div>
+          
         </div>
+
+       
         <img [src]="imageUrl" style="width:330px;height:250px">
         <input type="file" #Image accept="image/*" (change)="handleFileInput($event.target.files)">
-        <button type="submit" class="btn-large btn-submit" [disabled]="Image.value=='' || !imageForm.valid">Submit</button>
+        <button type="submit" class="btn-large btn-submit" [disabled]="Image.value=='' || !imageForm.valid">Upload</button>
       </form>
     </div>
   </div>

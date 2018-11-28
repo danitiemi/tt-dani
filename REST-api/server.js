@@ -20,7 +20,7 @@ app.use(cors(corsOptions));
 // POST endpoint
 app.post('/upload', upload);
 
-app.get('/', (req, res) =>
+app.get('/', (req, res, next) =>
   res.send(`Node and express server is running on port ${PORT}`)
 );
 

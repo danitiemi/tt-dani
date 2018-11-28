@@ -1,30 +1,43 @@
 // A Node.js module for parsing form data, especially file uploads
 const formidable = require('formidable');
+const del = require('del');
 
+module.exports = function upload(req, res, next) {
+  
+  //  create a new incoming form
+  const form = new formidable.IncomingForm({
+    uploadDir: __dirname + '/uploads', 
+    keepExtensions: true
+  });
 
-module.exports = function upload(req ,res) {
-  //  create a new form
-  const form = new formidable.IncomingForm();
-  const upload_path = __dirname + "/uploads";
-
+  // delete files inside folder but not the folder itself
   const cleanFolder = function (folderPath) {
-    // delete files inside folder but not the folder itself
-    del.sync([`${folderPath}/**`, `!${folderPath}`]);
-};
+    del.sync([`${folderPath}/*`, `!${folderPath}`]);
+  };
+
+  const upload_path = form.uploadDir;
 
   // trigger the parsing of the form
   form.parse(req);
 
   form.on('field', (caption, field) => {
-    console.log('Field', caption, field);
-
+    console.log('Caption: ', field);
   });
 
-  // Do something with the file
-  form.on('file', (name, file) => {
-    // e.g. save it to the database
-    console.log('Uploaded file', name, file, __dirname);
-    file.path = __dirname + '/uploads/' + file.name;
+  // check if the file extension is valid
+  form.on('file', (type, file) => {
+    if (!file.name.match(/\.(jpg|jpeg|png)$/)) {
+      res.status(400).json( {
+        result: 'Bad Request! Only image files with extensions .png, .jpg and .jpeg are allowed.'
+      });
+      console.log('Invalid extension');
+    } else {
+      res.status(200).json( {
+        result: 'Upload Success!!!'
+      });
+      console.log('Success!');
+    }
+    // console.log('Uploaded file', type, file, file.path);
   });
 
   form.on('error', (err) => {
@@ -34,12 +47,8 @@ module.exports = function upload(req ,res) {
 
   // called when the form is completely parsed
   form.on('end', () => {
-    // send back a success status code
-    res.status(200).json( {
-      result: 'Upload Success'
-    });
-    console.log('Upload path:', upload_path)
-    // cleanFolder(upload_path);
+    // delete the file
+    cleanFolder(upload_path);
   });
 };
 
