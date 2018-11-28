@@ -4,7 +4,7 @@
       <div class="card-panel teal lighten-2">
         <h4 class="center white-text">Image Library</h4>
       </div>
-      <form #imageForm = ngForm>
+      <form #imageForm=ngForm (ngSubmit)="OnSubmit(Caption,Image)">
         <div class="row">
           <div class="input-field col s12">
             <input type="text" #Caption ngModel name="Caption" id="Caption" required>
