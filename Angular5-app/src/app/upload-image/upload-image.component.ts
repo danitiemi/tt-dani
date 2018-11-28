@@ -34,7 +34,7 @@ export class UploadImageComponent implements OnInit {
         console.log('done');
         Caption.value = null;
         Image.value = null;
-        this.imageUrl = "/assets/img/pandas.png";
+        this.imageUrl = "/assets/img/success.png";
       }
     );
   }
