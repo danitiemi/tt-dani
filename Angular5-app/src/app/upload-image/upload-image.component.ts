@@ -11,32 +11,41 @@ import { UploadImageService } from './upload-image.service';
 export class UploadImageComponent implements OnInit {
   imageUrl: string = "/assets/img/pandas.png";
   fileToUpload: File = null;
+  model: any = {};
 
   constructor(private imageService : UploadImageService) { }
 
-  ngOnInit() {
-  }
+  ngOnInit() {}
 
   handleFileInput(file: FileList) {
     this.fileToUpload = file.item(0);
 
     // Show image preview
-    let reader = new FileReader();
+    const reader = new FileReader();
     reader.onload = (event:any) => {
       this.imageUrl = event.target.result;
     }
     reader.readAsDataURL(this.fileToUpload);
   }
 
-  OnSubmit(Caption,Image){
-    this.imageService.postFile(Caption.value,this.fileToUpload).subscribe(
-      data =>{
-        console.log('done');
-        Caption.value = null;
-        Image.value = null;
-        this.imageUrl = "/assets/img/success.png";
-      }
-    );
+  onSubmit(Caption,Image){
+    try {
+      this.imageService
+      .postFile(Caption.value,this.fileToUpload)
+      .subscribe(
+        data =>{
+          console.log('done');
+          Caption.value = null;
+          Image.value = null;
+          this.imageUrl = "/assets/img/success.png";
+          alert('SUCCESS!!! 😉 \n\n Image Uploaded.  \n\n');
+        }
+      );
+    } catch (error) {
+      console.log('Bad Request');
+      this.imageUrl = "/assets/img/Error.png";
+    }
+    
   }
 
 }

@@ -26,3 +26,11 @@ Don't worry about styling
 Please submit a `pull request` to this repository by *Midnight, Thursday, November 29, 2018*
 
 If you have any questions, please contact john.cruz@phsa.ca
+
+### REST API
+1. NPM install
+2. node server.js
+
+### Angular 5 App
+1. Run `ng serve` for a dev server. 
+2. Navigate to `http://localhost:4200/`
